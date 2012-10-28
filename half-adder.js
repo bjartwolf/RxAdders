@@ -7,12 +7,12 @@ var andDelay = 20;
 
 var HalfAdder  = function HalfAdder (A,B) {
     // Calculating the signal D as A OR B
-    var D = A.zip(B, function (valueA, valueB) {
+    var D = Rx.Observable.merge(null, [A, B], function (valueA, valueB) {
         return valueA || valueB;
     }).delay(orDelay);
 
     // Calculating the carry signal (C) as A AND B
-    var C = A.zip(B, function (valueA, valueB) {
+    var C = Rx.Observable.merge(null, [A, B], function (valueA, valueB) {
         return valueA && valueB;
     }).delay(andDelay);
 
@@ -22,7 +22,7 @@ var HalfAdder  = function HalfAdder (A,B) {
     }).delay(invDelay);
 
     // Calculating the sum as D AND E
-    var S = D.zip(E, function (valueA, valueB) {
+    var S = Rx.Observable.merge(null, [D, E], function (valueA, valueB) {
         return valueA && valueB;
     }).delay(orDelay);
     return { S: S, C: C};

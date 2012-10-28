@@ -5,7 +5,7 @@ var periodInMs = 1000;
 var FullAdder = function FullAdder(A, B, Cin) {
     var halfAdder1 = new HalfAdder(B, Cin);
     var halfAdder2 = new HalfAdder(A, halfAdder1.S);
-    var C = halfAdder2.C.zip(halfAdder1.S, function (valueA, valueB) {
+    var C = Rx.Observable.merge(null, [halfAdder2.C, halfAdder1.S], function (valueA, valueB) {
         return valueA || valueB;
     }).delay(orDelay);
     var S = halfAdder2.S;
