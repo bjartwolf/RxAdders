@@ -24,7 +24,7 @@ var HalfAdder  = function HalfAdder (A,B) {
     // Calculating the sum as D AND E
     var S = Rx.Observable.merge(null, [D, E], function (valueA, valueB) {
         return valueA && valueB;
-    }).delay(orDelay);
+    }).delay(andDelay);
     return { S: S, C: C};
 }
 module.exports = HalfAdder;
